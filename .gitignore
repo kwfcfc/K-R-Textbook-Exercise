@@ -1,0 +1,14 @@
+# Ignore intermediate files
+*~
+*.o
+*.obj
+
+# Ignore executables
+*.exe
+*.out
+
+# Ignore compiled files
+*.class
+*.dll
+*.so
+*.dylib
