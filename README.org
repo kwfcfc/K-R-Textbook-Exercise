@@ -1,0 +1,25 @@
+* C Programming Language Exercises
+
+This repository contains solution of exercises from the book "C Programming
+Language" by Brian Kernighan and Dennis Ritchie.
+
+** Topics
+The exercises cover a wide range of topics related to the C programming language, including:
+
++ Variables and Data Types
++ Control Flow
++ Functions
++ Arrays and Pointers
++ Input and Output
++ Structures and Unions
++ File Handling
++ Memory Management
+
+Each chapter focuses on specific concepts and provides solutions to exercises.
+
+** Directory
+The repository is organized into chapters, with each chapter containing exercises related to the respective topics covered in the book.
+
+** License
+This project is licensed under the MIT License. See the LICENSE file for more information.
+
