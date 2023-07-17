@@ -5,9 +5,6 @@
 #define BUFFER_SIZE 3 /* length of BUFFER, plus the '\0' char, so the actual
                          length is 2. */
 
-int str_buffer(char string[], int character);
-int match(char string[], char item[]);
-
 int main(){
   int c,  temp;
   char multi_comments[2][3]={"/*", "*/"};
@@ -20,7 +17,8 @@ int main(){
                                       requiremnts of function. */
 
   while ((c=getchar()) != EOF){
-    if (c == '\"' || c == '\'') /* means it matches a quote */
+    if (c == '\"' || c == '\'') /* means it matches a quote, we don't check
+                                   whether " or ' matches each other. */
       quote = (quote == OUTPAIR? INPAIR:OUTPAIR); /* switch the quote status */
     /*
     if (comment == INPAIR && match(buffer, inline_comments[1]) == 1)
@@ -31,8 +29,9 @@ int main(){
       continue;
     }else{
       if (comment == INPAIR && c == multi_comments[1][0]){
-        if ((temp=getchar()) == multi_comments[0][1]){
+        if ((temp=getchar()) == multi_comments[1][1]){
           comment = OUTPAIR;
+          c = getchar();
         }
       }
       /*
@@ -47,6 +46,7 @@ int main(){
           else{
             comment = OUTPAIR;
             putchar(c);
+            c = temp;
           }
           //printf("%c ", temp);
         }
@@ -58,7 +58,6 @@ int main(){
         */
         /* temp equals to NIL means there's no stored char that is undecided. */
         putchar(c);
-        //printf("%d %d %d\n", status_buffer[0], status_buffer[1], status_buffer[2]);
     }
   }
   if (comment == INPAIR)
@@ -67,39 +66,3 @@ int main(){
     printf("unclosed parentheses\n");
 }
 
-/* stack the input char into string next to '\0' and store last n results */
-int str_buffer(char s[], int c)
-{
-  /* we don't use '\0' to determine because it can not handle the output if
-     input is less than the length of string. So we trust the input length is
-     not greater than the length of string.
-  */
-  int i;
-  for (i=0; s[i+2] != '\0'; ++i) // which means the i+1 is not the last element
-    s[i] = s[i+1]; // drop the first element
-  s[i] = c;
-  s[i+1] = '\0';
-  return s[i];
-}
-
-/* match item in string, if many matches, return the first one. */
-int match(char s[], char word[]){
-  int i, j;
-  int check; // check if, matches we assume that first the string match
-
-  if (s[0] == '\0')
-    return check = -1; // this is intended to return illegal string array. 
-  else
-    for (i=0; s[i] != '\0'; ++i){
-      check = 1;
-      for (j=0; word[j] != '\0'; ++j)
-        check = (check && (s[i+j] == word[j]));
-        /* This is based on the and logic operations and may be changed due to
-         specific value of check */
-      if (check == 1){
-        break;
-      }
-    }
-
-  return check;
-}
