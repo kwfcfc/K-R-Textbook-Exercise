@@ -2,6 +2,8 @@
 #define MAXLINE 300
 #define MAXLEN 80
 #define MINBREAK 10 /* minumum length of a folded line if there is a blank*/
+#define INBLANK 1
+#define OUTBLANK 0
 
 int my_getline(char string[], int maxline);
 void fold(char string[], char newstring[], int maxlen, int minbreak);
@@ -47,18 +49,18 @@ void fold (char s[], char new[], int lim, int min){
         if (s[i-k] == ' ' || s[i-k] == '\t'){
           new[j-k] = '\n';
           cnt = (k - 1);  /* switch the count of line length to an original */
-          lastblank = 1; /* means there is a blank space in
+          lastblank = INBLANK; /* means there is a blank space in
                             minbreak range */
           break;
         }
         else
-          lastblank = 0;
+          lastblank = NOBLANK;
       }
-      if (lastblank == 0){
+      if (lastblank == NOBLANK){
         new[j] = '\n';
         new[++j] = s[i]; /* s[i] is the next item */
         cnt = 0;
-      }else if (lastblank == 1){
+      }else if (lastblank == INBLANK){
         i -= k;
         j -= k;
       }
